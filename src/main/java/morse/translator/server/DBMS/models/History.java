@@ -5,7 +5,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,19 +12,15 @@ import java.util.Date;
 @Table(name = "histories")
 public class History implements Serializable {
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
     @Column(nullable = false, length = 2000)
     private String start_string;
 
-    @NotNull
     @Column(nullable = false, length = 4000)
     private String end_string;
 
-    @NotNull
     private Date operation_time;
 
     @ManyToOne(fetch = FetchType.LAZY)

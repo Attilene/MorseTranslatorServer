@@ -5,21 +5,17 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "passwords")
 public class Password implements Serializable {
     @Id
-    @NotNull
     private Long id;
 
-    @NotNull
     @Column(nullable = false, length = 150)
     private String hash;
 
-    @NotNull
     @Column(nullable = false, length = 70)
     private String salt;
 

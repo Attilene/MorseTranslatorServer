@@ -1,7 +1,6 @@
 package morse.translator.server.DBMS.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -9,23 +8,18 @@ import java.sql.Date;
 @Table(name = "users")
 public class User implements Serializable {
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
     @Column(length = 40, nullable = false)
     private String first_name;
 
-    @NotNull
     @Column(length = 40, nullable = false)
     private String last_name;
 
-    @NotNull
     @Column(length = 60, unique = true, nullable = false)
     private String login;
 
-    @NotNull
     @Column(length = 50, unique = true, nullable = false)
     private String email;
 
