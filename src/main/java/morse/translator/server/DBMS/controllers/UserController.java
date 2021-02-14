@@ -1,6 +1,6 @@
 package morse.translator.server.DBMS.controllers;
 
-import morse.translator.server.DBMS.exceptions.ResourceNotFoundException;
+import morse.translator.server.exceptions.ResourceNotFoundException;
 import morse.translator.server.DBMS.models.User;
 import morse.translator.server.DBMS.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

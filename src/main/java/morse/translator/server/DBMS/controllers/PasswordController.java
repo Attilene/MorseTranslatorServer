@@ -1,6 +1,6 @@
 package morse.translator.server.DBMS.controllers;
 
-import morse.translator.server.DBMS.exceptions.ResourceNotFoundException;
+import morse.translator.server.exceptions.ResourceNotFoundException;
 import morse.translator.server.DBMS.models.Password;
 import morse.translator.server.DBMS.repositories.PasswordRepository;
 import morse.translator.server.DBMS.repositories.UserRepository;
