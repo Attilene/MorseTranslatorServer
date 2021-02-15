@@ -1,6 +1,6 @@
-package morse.translator.server.DBMS.repositories;
+package morse.translator.server.repository;
 
-import morse.translator.server.DBMS.models.User;
+import morse.translator.server.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {

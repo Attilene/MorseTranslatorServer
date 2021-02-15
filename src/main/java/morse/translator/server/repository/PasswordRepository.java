@@ -1,6 +1,6 @@
-package morse.translator.server.DBMS.repositories;
+package morse.translator.server.repository;
 
-import morse.translator.server.DBMS.models.Password;
+import morse.translator.server.model.Password;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

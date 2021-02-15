@@ -1,8 +1,8 @@
-package morse.translator.server.DBMS.controllers;
+package morse.translator.server.controller;
 
 import morse.translator.server.exceptions.ResourceNotFoundException;
-import morse.translator.server.DBMS.models.User;
-import morse.translator.server.DBMS.repositories.UserRepository;
+import morse.translator.server.model.User;
+import morse.translator.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

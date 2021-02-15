@@ -1,9 +1,9 @@
-package morse.translator.server.DBMS.controllers;
+package morse.translator.server.controller;
 
 import morse.translator.server.exceptions.ResourceNotFoundException;
-import morse.translator.server.DBMS.models.Password;
-import morse.translator.server.DBMS.repositories.PasswordRepository;
-import morse.translator.server.DBMS.repositories.UserRepository;
+import morse.translator.server.model.Password;
+import morse.translator.server.repository.PasswordRepository;
+import morse.translator.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
