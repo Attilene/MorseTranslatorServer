@@ -26,6 +26,14 @@ public class Password implements Serializable {
     @JsonIgnore
     private User user;
 
+    public Password() {}
+
+    public Password(String hash,
+                    String salt) {
+        this.hash = hash;
+        this.salt = salt;
+    }
+
     public Long getId() { return id; }
 
     public String getHash() { return hash; }

@@ -29,6 +29,16 @@ public class History implements Serializable {
     @JsonIgnore
     private User user;
 
+    public History() {}
+
+    public History(String start_string,
+                   String end_string,
+                   Date operation_time) {
+        this.start_string = start_string;
+        this.end_string = end_string;
+        this.operation_time = operation_time;
+    }
+
     public Date getOperation_time() { return operation_time; }
 
     public Long getId() { return id; }

@@ -7,15 +7,13 @@ import java.util.Map;
 @Component
 public class Translator extends Dictionaries {
     public String start_str, end_str;
-    public Boolean eng;
 
     public Translator() {
         start_str = null;
         end_str = null;
-        eng = false;
     }
 
-    public void translate(Boolean toMorse) {
+    public void translate(Boolean toMorse, Boolean eng) {
         if (start_str != null) {
             start_str = Translator.replaceE(start_str.toUpperCase());
             if (toMorse && !eng) end_str = langToMorse(start_str, rusToMorse);
@@ -35,7 +33,7 @@ public class Translator extends Dictionaries {
                 res += elem + " ";
             }
         }
-        return res;
+        return res.substring(0, res.length() - 1);
     }
 
     public static String morseToLang(String str, Map<String, Character> dict) {
@@ -54,9 +52,5 @@ public class Translator extends Dictionaries {
 
     public String getEnd_str() { return end_str; }
 
-    public Boolean getEng() { return eng; }
-
     public void setStart_str(String start_str) { this.start_str = start_str; }
-
-    public void setEng(Boolean eng) { this.eng = eng; }
 }

@@ -28,6 +28,22 @@ public class User implements Serializable {
 
     private Date birthday;
 
+    public User() {}
+
+    public User(String first_name,
+                String last_name,
+                String login,
+                String email,
+                String phone_number,
+                Date birthday) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.login = login;
+        this.email = email;
+        this.phone_number = phone_number;
+        this.birthday = birthday;
+    }
+
     public Long getId() { return id; }
 
     public String getLast_name() { return last_name; }
