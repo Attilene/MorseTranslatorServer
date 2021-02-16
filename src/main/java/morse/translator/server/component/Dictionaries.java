@@ -7,28 +7,7 @@ import java.util.Map;
 
 @Component
 public abstract class Dictionaries {
-    protected final Map<Character, String> numIntoMorse = new HashMap<>() {{
-        put('0', "-----");
-        put('1', "·----");
-        put('2', "··---");
-        put('3', "···--");
-        put('4', "····-");
-        put('5', "·····");
-        put('6', "-····");
-        put('7', "--···");
-        put('8', "---··");
-        put('9', "----·");
-    }};
-
-    protected final Map<Character, String> symIntoMorse = new HashMap<>() {{
-        put('.', "······");
-        put('?', "··--··");
-        put('-', "·-·-·-");
-        put(':', "---···");
-        put('!', "--··--");
-    }};
-    
-    protected final Map<Character, String> rusIntoMorse = new HashMap<>() {{
+    protected final Map<Character, String> rusToMorse = new HashMap<>() {{
         put('А', "·-");
         put('Б', "-···");
         put('В', "·--");
@@ -61,9 +40,26 @@ public abstract class Dictionaries {
         put('Э', "··-··");
         put('Ю', "··--");
         put('Я', "·-·-");
+        put('0', "-----");
+        put('1', "·----");
+        put('2', "··---");
+        put('3', "···--");
+        put('4', "····-");
+        put('5', "·····");
+        put('6', "-····");
+        put('7', "--···");
+        put('8', "---··");
+        put('9', "----·");
+        put('.', "······");
+        put(',', "·-·-·-");
+        put('/', "-··-·");
+        put('?', "··--··");
+        put(':', "---···");
+        put('!', "--··--");
+        put(' ', "-···-");
     }};
 
-    protected Map<Character, String> engIntoMorse = new HashMap<>() {{
+    protected Map<Character, String> engToMorse = new HashMap<>() {{
         put('A', "·-");
         put('B', "-···");
         put('C', "-·-·");
@@ -90,28 +86,33 @@ public abstract class Dictionaries {
         put('X', "-··-");
         put('Y', "-·--");
         put('Z', "--··");
+        put('0', "-----");
+        put('1', "·----");
+        put('2', "··---");
+        put('3', "···--");
+        put('4', "····-");
+        put('5', "·····");
+        put('6', "-····");
+        put('7', "--···");
+        put('8', "---··");
+        put('9', "----·");
+        put('.', "······");
+        put(',', "·-·-·-");
+        put('/', "-··-·");
+        put('?', "··--··");
+        put(':', "---···");
+        put('!', "--··--");
+        put(' ', "-···-");
     }};
 
-    protected final Map<String, Character> morseIntoNum = new HashMap<>() {{
-        for(Map.Entry<Character, String> entry: numIntoMorse.entrySet()) {
+    protected final Map<String, Character> morseToRus = new HashMap<>() {{
+        for(Map.Entry<Character, String> entry: rusToMorse.entrySet()) {
             put(entry.getValue(), entry.getKey());
         }
     }};
 
-    protected final Map<String, Character> morseIntoSym = new HashMap<>() {{
-        for(Map.Entry<Character, String> entry: symIntoMorse.entrySet()) {
-            put(entry.getValue(), entry.getKey());
-        }
-    }};
-
-    protected final Map<String, Character> morseIntoRus = new HashMap<>() {{
-        for(Map.Entry<Character, String> entry: rusIntoMorse.entrySet()) {
-            put(entry.getValue(), entry.getKey());
-        }
-    }};
-
-    protected final Map<String, Character> morseIntoEng = new HashMap<>() {{
-        for(Map.Entry<Character, String> entry: engIntoMorse.entrySet()) {
+    protected final Map<String, Character> morseToEng = new HashMap<>() {{
+        for(Map.Entry<Character, String> entry: engToMorse.entrySet()) {
             put(entry.getValue(), entry.getKey());
         }
     }};
@@ -119,14 +120,10 @@ public abstract class Dictionaries {
     @Override
     public String toString() {
         return "Dictionaries{" +
-                "numIntoMorse=" + numIntoMorse +
-                ", symIntoMorse=" + symIntoMorse +
-                ", rusIntoMorse=" + rusIntoMorse +
-                ", engIntoMorse=" + engIntoMorse +
-                ", morseIntoNum=" + morseIntoNum +
-                ", morseIntoSym=" + morseIntoSym +
-                ", morseIntoRus=" + morseIntoRus +
-                ", morseIntoEng=" + morseIntoEng +
+                "rusToMorse=" + rusToMorse +
+                ", engToMorse=" + engToMorse +
+                ", morseToRus=" + morseToRus +
+                ", morseToEng=" + morseToEng +
                 '}';
     }
 }
