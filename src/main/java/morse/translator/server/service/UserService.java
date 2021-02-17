@@ -14,6 +14,12 @@ public class UserService {
 
     public UserService(UserRepository userRepository) { this.userRepository = userRepository; }
 
+    public User getById(Long id) { return userRepository.getOne(id); }
+
+    public User getByEmail(String email) { return userRepository.findUserByEmail(email); }
+
+    public User getByLogin(String login) { return userRepository.findUserByLogin(login); }
+
     public List<User> getAllUsers() { return userRepository.findAll(); }
 
     public User addUser(User user) { return userRepository.saveAndFlush(user); }

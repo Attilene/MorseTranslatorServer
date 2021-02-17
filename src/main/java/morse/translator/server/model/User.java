@@ -3,6 +3,8 @@ package morse.translator.server.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -28,6 +30,20 @@ public class User implements Serializable {
 
     private Date birthday;
 
+    @OneToOne(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private Password password;
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<History> histories;
+
     public User() {}
 
     public User(String first_name,
@@ -42,6 +58,18 @@ public class User implements Serializable {
         this.email = email;
         this.phone_number = phone_number;
         this.birthday = birthday;
+        this.password = null;
+        this.histories = new ArrayList<>();
+    }
+
+    public void addHistory(History history){
+        this.histories.add(history);
+        history.setUser(this);
+    }
+
+    public void removeHistory(History history){
+        this.histories.remove(history);
+        history.setUser(null);
     }
 
     public Long getId() { return id; }
@@ -58,6 +86,10 @@ public class User implements Serializable {
 
     public String getPhone_number() { return phone_number; }
 
+    public Password getPassword() { return password; }
+
+    public List<History> getHistories() { return histories; }
+
     public void setLast_name(String last_name) { this.last_name = last_name; }
 
     public void setFirst_name(String first_name) { this.first_name = first_name; }
@@ -70,6 +102,16 @@ public class User implements Serializable {
 
     public void setLogin(String login) { this.login = login; }
 
+    public void setHistories(List<History> histories) { this.histories = histories; }
+
+    public void setPassword(Password password) {
+        if (password == null) {
+            if (this.password != null) this.password.setUser(null);
+        }
+        else { password.setUser(this); }
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -80,6 +122,8 @@ public class User implements Serializable {
                 ", email='" + email + '\'' +
                 ", phone_number='" + phone_number + '\'' +
                 ", birthday=" + birthday +
+                ", password=" + password +
+                ", histories=" + histories +
                 '}';
     }
 }

@@ -17,7 +17,9 @@ public class PasswordService {
 
     public List<Password> getAllPasswords() { return passwordRepository.findAll(); }
 
-    public List<Password> getPasswordsByUser(User user) { return passwordRepository.findByUserId(user.getId()); }
+    public Password getById(Long id) { return passwordRepository.getOne(id); }
+
+    public Password getPasswordByUser(User user) { return passwordRepository.findByUserId(user.getId()); }
 
     public Password addPassword(Password password) { return passwordRepository.saveAndFlush(password); }
 

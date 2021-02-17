@@ -21,7 +21,7 @@ public class PasswordController {
     private UserRepository userRepository;
 
     @GetMapping("/users/{userId}/passwords")
-    public List<Password> getPassword(@PathVariable Long userId) {
+    public Password getPassword(@PathVariable Long userId) {
         return passwordRepository.findByUserId(userId);
     }
 

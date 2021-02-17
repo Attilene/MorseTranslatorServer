@@ -17,6 +17,8 @@ public class HistoryService {
 
     public List<History> getAllHistories() { return historyRepository.findAll(); }
 
+    public History getById(Long id) { return historyRepository.getOne(id); }
+
     public List<History> getHistoriesByUser(User user) { return historyRepository.findByUserId(user.getId()); }
 
     public History addHistory(History history) { return historyRepository.saveAndFlush(history); }
