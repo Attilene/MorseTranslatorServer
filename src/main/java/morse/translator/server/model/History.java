@@ -15,10 +15,10 @@ public class History implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, length = 2000)
+    @Column(nullable = false, length = 5000)
     private String start_string;
 
-    @Column(nullable = false, length = 4000)
+    @Column(nullable = false, length = 5000)
     private String end_string;
 
     private Date operation_time;

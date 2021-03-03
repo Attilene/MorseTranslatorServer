@@ -3,6 +3,7 @@ package morse.translator.server.service;
 import morse.translator.server.model.Password;
 import morse.translator.server.model.User;
 import morse.translator.server.repository.PasswordRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,9 +12,8 @@ import java.util.List;
 @Service
 @Transactional
 public class PasswordService {
-    private final PasswordRepository passwordRepository;
-
-    public PasswordService(PasswordRepository passwordRepository) { this.passwordRepository = passwordRepository; }
+    @Autowired
+    private PasswordRepository passwordRepository;
 
     public List<Password> getAllPasswords() { return passwordRepository.findAll(); }
 
