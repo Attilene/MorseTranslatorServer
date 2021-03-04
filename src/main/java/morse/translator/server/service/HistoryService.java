@@ -3,7 +3,6 @@ package morse.translator.server.service;
 import morse.translator.server.model.History;
 import morse.translator.server.model.User;
 import morse.translator.server.repository.HistoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,8 +11,9 @@ import java.util.List;
 @Service
 @Transactional
 public class HistoryService {
-    @Autowired
-    private HistoryRepository historyRepository;
+    private final HistoryRepository historyRepository;
+
+    public HistoryService(HistoryRepository historyRepository) { this.historyRepository = historyRepository; }
 
     public List<History> getAllHistories() { return historyRepository.findAll(); }
 

@@ -12,8 +12,9 @@ import java.util.List;
 @Service
 @Transactional
 public class PasswordService {
-    @Autowired
-    private PasswordRepository passwordRepository;
+    private final PasswordRepository passwordRepository;
+
+    public PasswordService(PasswordRepository passwordRepository) { this.passwordRepository = passwordRepository; }
 
     public List<Password> getAllPasswords() { return passwordRepository.findAll(); }
 

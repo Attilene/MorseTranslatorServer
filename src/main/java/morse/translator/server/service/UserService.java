@@ -11,8 +11,9 @@ import java.util.List;
 @Service
 @Transactional
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) { this.userRepository = userRepository; }
 
     public User getById(Long id) { return userRepository.getOne(id); }
 
