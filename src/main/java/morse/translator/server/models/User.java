@@ -1,4 +1,4 @@
-package morse.translator.server.model;
+package morse.translator.server.models;
 
 import javax.persistence.*;
 import java.io.Serializable;

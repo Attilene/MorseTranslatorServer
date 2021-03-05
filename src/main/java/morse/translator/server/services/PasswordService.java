@@ -1,8 +1,8 @@
-package morse.translator.server.service;
+package morse.translator.server.services;
 
-import morse.translator.server.model.Password;
-import morse.translator.server.model.User;
-import morse.translator.server.repository.PasswordRepository;
+import morse.translator.server.models.Password;
+import morse.translator.server.models.User;
+import morse.translator.server.repositories.PasswordRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

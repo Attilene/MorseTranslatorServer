@@ -1,11 +1,11 @@
-package morse.translator.server.controller;
+package morse.translator.server.controllers;
 
-import morse.translator.server.model.Password;
-import morse.translator.server.model.User;
-import morse.translator.server.repository.PasswordRepository;
-import morse.translator.server.repository.UserRepository;
-import morse.translator.server.service.PasswordService;
-import morse.translator.server.service.UserService;
+import morse.translator.server.models.Password;
+import morse.translator.server.models.User;
+import morse.translator.server.repositories.PasswordRepository;
+import morse.translator.server.repositories.UserRepository;
+import morse.translator.server.services.PasswordService;
+import morse.translator.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package morse.translator.server.model;
+package morse.translator.server.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;

@@ -1,4 +1,4 @@
-package morse.translator.server.component;
+package morse.translator.server.components;
 
 import org.springframework.stereotype.Component;
 
