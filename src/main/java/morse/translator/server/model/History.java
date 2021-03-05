@@ -21,6 +21,7 @@ public class History implements Serializable {
     @Column(nullable = false, length = 5000)
     private String end_string;
 
+    @Column(nullable = false)
     private Date operation_time;
 
     @ManyToOne(fetch = FetchType.LAZY)

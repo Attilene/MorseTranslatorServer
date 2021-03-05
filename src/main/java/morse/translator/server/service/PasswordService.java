@@ -3,7 +3,6 @@ package morse.translator.server.service;
 import morse.translator.server.model.Password;
 import morse.translator.server.model.User;
 import morse.translator.server.repository.PasswordRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

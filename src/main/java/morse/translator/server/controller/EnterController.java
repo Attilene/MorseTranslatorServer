@@ -24,9 +24,8 @@ public class EnterController {
     public User enterUser(@RequestParam String login_email,
                           @RequestParam String password_hash,
                           @RequestParam String salt) {
-        User user;
         UserService userService = new UserService(userRepository);
-        user = userService.getByEmail(login_email);
+        User user = userService.getByEmail(login_email);
         if (user == null) user = userService.getByLogin(login_email);
         if (user != null) {
             Password password = new PasswordService(passwordRepository).getPasswordByUser(user);
