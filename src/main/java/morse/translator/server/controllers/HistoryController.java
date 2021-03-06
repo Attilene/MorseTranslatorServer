@@ -1,5 +1,6 @@
 package morse.translator.server.controllers;
 
+import morse.translator.server.components.Translator;
 import morse.translator.server.models.History;
 import morse.translator.server.models.User;
 import morse.translator.server.repositories.HistoryRepository;
@@ -24,12 +25,17 @@ public class HistoryController {
 
     @PostMapping("/history")
     public String addHistory(@RequestParam String start_string,
-                             @RequestParam String end_string,
                              @RequestParam Date operation_time,
-                             @RequestParam Long user_id) {
+                             @RequestParam Long user_id,
+                             @RequestParam Boolean morse,
+                             @RequestParam Boolean language) {
         UserService userService = new UserService(userRepository);
         HistoryService historyService = new HistoryService(historyRepository);
+        Translator translator = new Translator();
         try {
+            translator.setStart_str(start_string);
+            translator.translate(morse, language);
+            String end_string = translator.getEnd_str();
             History history = new History(start_string, end_string, operation_time);
             User user = userService.getById(user_id);
             if (user.getLogin() == null) throw new Exception();

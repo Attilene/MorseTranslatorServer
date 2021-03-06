@@ -19,6 +19,20 @@ public class UserController {
     @Autowired
     private PasswordRepository passwordRepository;
 
+    @PostMapping("/enter")
+    public User enterUser(@RequestParam String login_email,
+                          @RequestParam String password_hash,
+                          @RequestParam String salt) {
+        UserService userService = new UserService(userRepository);
+        User user = userService.getByEmail(login_email);
+        if (user == null) user = userService.getByLogin(login_email);
+        if (user != null) {
+            Password password = new PasswordService(passwordRepository).getPasswordByUser(user);
+            if (password.getHash().equals(password_hash) && password.getSalt().equals(salt)) return user;
+        }
+        return null;
+    }
+
     @PostMapping("/registration")
     public String registrationUser(@RequestParam String first_name,
                                    @RequestParam String last_name,
