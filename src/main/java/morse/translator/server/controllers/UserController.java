@@ -50,7 +50,7 @@ public class UserController {
         } catch (Exception e) { return "registration_failed"; }
     }
 
-    @PutMapping("/update")
+    @PutMapping("/user")
     public User updateUser(@RequestParam Long id,
                            @RequestParam String first_name,
                            @RequestParam String last_name,
@@ -85,7 +85,7 @@ public class UserController {
         } catch (Exception e) { return null; }
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/user")
     public String deleteUser(@RequestParam Long id) {
         try {
             UserService userService = new UserService(userRepository);
