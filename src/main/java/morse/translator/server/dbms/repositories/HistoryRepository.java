@@ -1,6 +1,6 @@
-package morse.translator.server.repositories;
+package morse.translator.server.dbms.repositories;
 
-import morse.translator.server.models.History;
+import morse.translator.server.dbms.models.History;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

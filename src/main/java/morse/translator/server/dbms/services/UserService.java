@@ -1,7 +1,7 @@
-package morse.translator.server.services;
+package morse.translator.server.dbms.services;
 
-import morse.translator.server.models.User;
-import morse.translator.server.repositories.UserRepository;
+import morse.translator.server.dbms.models.User;
+import morse.translator.server.dbms.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

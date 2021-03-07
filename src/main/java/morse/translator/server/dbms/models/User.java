@@ -1,4 +1,4 @@
-package morse.translator.server.models;
+package morse.translator.server.dbms.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -41,7 +41,8 @@ public class User implements Serializable {
     @OneToMany(
             mappedBy = "user",
             cascade = CascadeType.ALL,
-            orphanRemoval = true)
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
     private List<History> histories;
 
     public User() {}

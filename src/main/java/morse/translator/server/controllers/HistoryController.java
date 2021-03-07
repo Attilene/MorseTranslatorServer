@@ -1,12 +1,12 @@
 package morse.translator.server.controllers;
 
 import morse.translator.server.components.Translator;
-import morse.translator.server.models.History;
-import morse.translator.server.models.User;
-import morse.translator.server.repositories.HistoryRepository;
-import morse.translator.server.repositories.UserRepository;
-import morse.translator.server.services.HistoryService;
-import morse.translator.server.services.UserService;
+import morse.translator.server.dbms.models.History;
+import morse.translator.server.dbms.models.User;
+import morse.translator.server.dbms.repositories.HistoryRepository;
+import morse.translator.server.dbms.repositories.UserRepository;
+import morse.translator.server.dbms.services.HistoryService;
+import morse.translator.server.dbms.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
