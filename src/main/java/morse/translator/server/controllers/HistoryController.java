@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
 import java.util.Date;
 
 @RestController
@@ -24,11 +25,10 @@ public class HistoryController {
     HistoryRepository historyRepository;
 
     @PostMapping("/history")
-    public String addHistory(@RequestParam String start_string,
-                             @RequestParam Date operation_time,
-                             @RequestParam Long user_id,
-                             @RequestParam Boolean morse,
-                             @RequestParam Boolean language) {
+    public History addHistory(@RequestParam String start_string,
+                              @RequestParam Long user_id,
+                              @RequestParam Boolean morse,
+                              @RequestParam Boolean language) {
         UserService userService = new UserService(userRepository);
         HistoryService historyService = new HistoryService(historyRepository);
         Translator translator = new Translator();
@@ -36,14 +36,13 @@ public class HistoryController {
             translator.setStart_str(start_string);
             translator.translate(morse, language);
             String end_string = translator.getEnd_str();
-            History history = new History(start_string, end_string, operation_time);
+            History history = new History(start_string, end_string, Date.from(Instant.now()));
             User user = userService.getById(user_id);
             if (user.getLogin() == null) throw new Exception();
             history.setUser(user);
-            historyService.addHistory(history);
-            return "history_add_success";
+            return historyService.addHistory(history);
         } catch (Exception e) {
-            return "history_add_failed";
+            return null;
         }
     }
 

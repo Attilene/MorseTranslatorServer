@@ -18,12 +18,20 @@ public class Translator extends Dictionaries {
             start_str = Translator.replaceE(start_str.toUpperCase());
             if (toMorse && !eng) end_str = langToMorse(start_str, rusToMorse);
             else if (toMorse) end_str = langToMorse(start_str, engToMorse);
-            else if (!eng) end_str = morseToLang(start_str, morseToRus);
-            else end_str = morseToLang(start_str, morseToEng);
+            else if (!eng) {
+                start_str = replaceDot(start_str);
+                end_str = morseToLang(start_str, morseToRus);
+            }
+            else {
+                start_str = replaceDot(start_str);
+                end_str = morseToLang(start_str, morseToEng);
+            }
         }
     }
 
     public static String replaceE(String str) { return str.replace('Ё', 'Е'); }
+
+    public static String replaceDot(String str) { return str.replace(".", "·"); }
 
     public static String langToMorse(String str, Map<Character, String> dict) {
         String elem, res = "";
