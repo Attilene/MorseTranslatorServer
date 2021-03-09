@@ -16,6 +16,7 @@ public class Translator extends Dictionaries {
     public void translate(Boolean toMorse, Boolean eng) {
         if (start_str != null) {
             start_str = Translator.replaceE(start_str.toUpperCase());
+            start_str = Translator.escapinator(start_str).replaceAll("[\\s]{2,}", " ").trim();
             if (toMorse && !eng) end_str = langToMorse(start_str, rusToMorse);
             else if (toMorse) end_str = langToMorse(start_str, engToMorse);
             else if (!eng) {
@@ -32,6 +33,14 @@ public class Translator extends Dictionaries {
     public static String replaceE(String str) { return str.replace('Ё', 'Е'); }
 
     public static String replaceDot(String str) { return str.replace(".", "·"); }
+
+    public static String escapinator(String str) {
+        String[] symbols = new String[] {";", "$", "#", "@", "\"", "'", "&", "%", "№", "^"};
+        for (String symbol: symbols) {
+            str = str.replace(symbol, "");
+        }
+        return str;
+    }
 
     public static String langToMorse(String str, Map<Character, String> dict) {
         String elem, res = "";

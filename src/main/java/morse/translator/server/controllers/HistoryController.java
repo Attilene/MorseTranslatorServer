@@ -35,8 +35,7 @@ public class HistoryController {
         try {
             translator.setStart_str(start_string);
             translator.translate(morse, language);
-            String end_string = translator.getEnd_str();
-            History history = new History(start_string, end_string, Date.from(Instant.now()));
+            History history = new History(translator.getStart_str(), translator.getEnd_str(), Date.from(Instant.now()));
             User user = userService.getById(user_id);
             if (user.getLogin() == null) throw new Exception();
             history.setUser(user);
