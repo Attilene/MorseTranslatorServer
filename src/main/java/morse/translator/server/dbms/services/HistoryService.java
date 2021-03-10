@@ -19,7 +19,7 @@ public class HistoryService {
 
     public History getById(Long id) { return historyRepository.getOne(id); }
 
-    public List<History> getHistoriesByUser(User user) { return historyRepository.findByUserId(user.getId()); }
+    public List<History> findByUserId(Long userId) { return historyRepository.findByUserId(userId); }
 
     public History addHistory(History history) { return historyRepository.saveAndFlush(history); }
 
