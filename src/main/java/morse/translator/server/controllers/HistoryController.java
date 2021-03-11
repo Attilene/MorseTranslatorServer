@@ -22,8 +22,8 @@ public class HistoryController {
     @Autowired
     HistoryRepository historyRepository;
 
-    @GetMapping("/history/{user_id}")
-    public List<History> getHistories(@PathVariable Long user_id) {
+    @PostMapping("/histories")
+    public List<History> getHistories(@RequestParam Long user_id) {
         HistoryService historyService = new HistoryService(historyRepository);
         try { return historyService.findByUserId(user_id); }
         catch (Exception e) { return null; }

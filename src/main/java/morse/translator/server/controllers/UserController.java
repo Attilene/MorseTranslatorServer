@@ -50,11 +50,8 @@ public class UserController {
             user.setEmail(email);
             if (phone_number.equals("null")) phone_number = null;
             user.setPhone_number(phone_number);
-            try {
-                user.setBirthday(Date.valueOf(birthday));
-            } catch (IllegalArgumentException e) {
-                user.setBirthday(null);
-            }
+            try { user.setBirthday(Date.valueOf(birthday)); }
+            catch (IllegalArgumentException e) { user.setBirthday(null); }
             UserService userService = new UserService(userRepository);
             userService.addUser(user);
             Password password = new Password(password_hash, salt);
@@ -89,11 +86,8 @@ public class UserController {
             user.setEmail(email);
             if (phone_number.equals("null")) phone_number = null;
             user.setPhone_number(phone_number);
-            try {
-                user.setBirthday(Date.valueOf(birthday));
-            } catch (IllegalArgumentException e) {
-                user.setBirthday(null);
-            }
+            try { user.setBirthday(Date.valueOf(birthday)); }
+            catch (IllegalArgumentException e) { user.setBirthday(null); }
             user.setPassword(password);
             return userService.updateUser(user);
         } catch (Exception e) { return null; }
