@@ -7,6 +7,9 @@ import morse.translator.server.dbms.repositories.HistoryRepository;
 import morse.translator.server.dbms.repositories.UserRepository;
 import morse.translator.server.dbms.services.HistoryService;
 import morse.translator.server.dbms.services.UserService;
+import morse.translator.server.logger.LogType;
+import morse.translator.server.logger.LoggerUtil;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +19,9 @@ import java.util.List;
 
 @RestController
 public class HistoryController {
+    private static final Logger LOGGER_CONTROLLER = LoggerUtil.getLogger(LogType.CONTROLLER);
+    private static final Logger LOGGER_ERROR = LoggerUtil.getLogger(LogType.ERROR);
+
     @Autowired
     UserRepository userRepository;
 
@@ -25,8 +31,15 @@ public class HistoryController {
     @PostMapping("/histories")
     public List<History> getHistories(@RequestParam Long user_id) {
         HistoryService historyService = new HistoryService(historyRepository);
-        try { return historyService.findByUserId(user_id); }
-        catch (Exception e) { return null; }
+        try {
+            List<History> histories = historyService.findByUserId(user_id);
+            LOGGER_CONTROLLER.info("Histories are received for user with id " + user_id);
+            return histories;
+        }
+        catch (Exception e) {
+            LOGGER_ERROR.error("There is no histories for user with id " + user_id);
+            return null;
+        }
     }
 
     @PostMapping("/history")
@@ -44,8 +57,13 @@ public class HistoryController {
             User user = userService.getById(user_id);
             if (user.getLogin() == null) throw new Exception();
             history.setUser(user);
-            return historyService.addHistory(history);
-        } catch (Exception e) { return null; }
+            History outHistory = historyService.addHistory(history);
+            LOGGER_CONTROLLER.info("Added a history for user with id " + user_id);
+            return outHistory;
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Failed to add the history for user with id " + user_id);
+            return null;
+        }
     }
 
     @DeleteMapping("/history")
@@ -55,7 +73,11 @@ public class HistoryController {
             History history = historyService.getById(id);
             if (history.getStart_string() == null) throw new Exception();
             historyService.deleteHistory(history);
+            LOGGER_CONTROLLER.info("Successful deleting the history with id " + id);
             return "history_delete_success";
-        } catch (Exception e) { return "history_delete_failed"; }
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Failed to delete the history with id " + id);
+            return "history_delete_failed";
+        }
     }
 }

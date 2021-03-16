@@ -1,7 +1,6 @@
 package morse.translator.server.dbms.services;
 
 import morse.translator.server.dbms.models.History;
-import morse.translator.server.dbms.models.User;
 import morse.translator.server.dbms.repositories.HistoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +18,7 @@ public class HistoryService {
 
     public History getById(Long id) { return historyRepository.getOne(id); }
 
-    public List<History> findByUserId(Long userId) { return historyRepository.findByUserId(userId); }
+    public List<History> findByUserId(Long user_id) { return historyRepository.findByUserId(user_id); }
 
     public History addHistory(History history) { return historyRepository.saveAndFlush(history); }
 

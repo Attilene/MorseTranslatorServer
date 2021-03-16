@@ -1,11 +1,15 @@
 package morse.translator.server.components;
 
+import morse.translator.server.logger.LogType;
+import morse.translator.server.logger.LoggerUtil;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
 @Component
 public class Translator extends Dictionaries {
+    private static final Logger LOGGER_TRANSLATOR = LoggerUtil.getLogger(LogType.TRANSLATOR);
     public String start_str, end_str;
 
     public Translator() {
@@ -27,6 +31,7 @@ public class Translator extends Dictionaries {
                 start_str = replaceDot(start_str);
                 end_str = morseToLang(start_str, morseToEng);
             }
+            LOGGER_TRANSLATOR.info("Translate '" + start_str + "' to '" + end_str + "'");
         }
     }
 

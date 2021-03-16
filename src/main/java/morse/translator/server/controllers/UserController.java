@@ -6,6 +6,9 @@ import morse.translator.server.dbms.repositories.PasswordRepository;
 import morse.translator.server.dbms.repositories.UserRepository;
 import morse.translator.server.dbms.services.PasswordService;
 import morse.translator.server.dbms.services.UserService;
+import morse.translator.server.logger.LogType;
+import morse.translator.server.logger.LoggerUtil;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,9 @@ import java.sql.Date;
 
 @RestController
 public class UserController {
+    private static final Logger LOGGER_CONTROLLER = LoggerUtil.getLogger(LogType.CONTROLLER);
+    private static final Logger LOGGER_ERROR = LoggerUtil.getLogger(LogType.ERROR);
+
     @Autowired
     private UserRepository userRepository;
 
@@ -28,8 +34,12 @@ public class UserController {
         if (user == null) user = userService.getByLogin(login_email);
         if (user != null) {
             Password password = new PasswordService(passwordRepository).getPasswordByUser(user);
-            if (password.getHash().equals(password_hash) && password.getSalt().equals(salt)) return user;
+            if (password.getHash().equals(password_hash) && password.getSalt().equals(salt)) {
+                LOGGER_CONTROLLER.info("Sign in is allowed for the user with id " + user.getId());
+                return user;
+            }
         }
+        LOGGER_ERROR.error("Failed sign in try");
         return null;
     }
 
@@ -42,6 +52,7 @@ public class UserController {
                                    @RequestParam String birthday,
                                    @RequestParam String password_hash,
                                    @RequestParam String salt) {
+        UserService userService = new UserService(userRepository);
         try {
             User user = new User();
             user.setFirst_name(first_name);
@@ -52,13 +63,16 @@ public class UserController {
             user.setPhone_number(phone_number);
             try { user.setBirthday(Date.valueOf(birthday)); }
             catch (IllegalArgumentException e) { user.setBirthday(null); }
-            UserService userService = new UserService(userRepository);
             userService.addUser(user);
             Password password = new Password(password_hash, salt);
             password.setUser(user);
             new PasswordService(passwordRepository).addPassword(password);
+            LOGGER_CONTROLLER.info("Sign up successful for the user with id " + user.getId());
             return "registration_success";
-        } catch (Exception e) { return "registration_failed"; }
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Failed sign up try");
+            return "registration_failed";
+        }
     }
 
     @PutMapping("/user")
@@ -89,18 +103,27 @@ public class UserController {
             try { user.setBirthday(Date.valueOf(birthday)); }
             catch (IllegalArgumentException e) { user.setBirthday(null); }
             user.setPassword(password);
-            return userService.updateUser(user);
-        } catch (Exception e) { return null; }
+            User outUser = userService.updateUser(user);
+            LOGGER_CONTROLLER.info("Successful personal data update for the user with id " + id);
+            return outUser;
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Failed personal data update for the user with id " + id);
+            return null;
+        }
     }
 
     @DeleteMapping("/user")
     public String deleteUser(@RequestParam Long id) {
+        UserService userService = new UserService(userRepository);
         try {
-            UserService userService = new UserService(userRepository);
             User user = userService.getById(id);
             if (user.getLogin() == null) throw new Exception();
             userService.deleteUser(user);
+            LOGGER_CONTROLLER.info("Successful deleting the user with id " + id);
             return "delete_success";
-        } catch (Exception e) { return "delete_failed"; }
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Failed deleting the user with id " + id);
+            return "delete_failed";
+        }
     }
 }
