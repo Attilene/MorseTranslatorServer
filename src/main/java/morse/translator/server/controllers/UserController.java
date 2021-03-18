@@ -10,6 +10,8 @@ import morse.translator.server.logger.LogType;
 import morse.translator.server.logger.LoggerUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
@@ -26,9 +28,9 @@ public class UserController {
     private PasswordRepository passwordRepository;
 
     @PostMapping("/enter")
-    public User enterUser(@RequestParam String login_email,
-                          @RequestParam String password_hash,
-                          @RequestParam String salt) {
+    public ResponseEntity<User> enterUser(@RequestParam String login_email,
+                                    @RequestParam String password_hash,
+                                    @RequestParam String salt) {
         UserService userService = new UserService(userRepository);
         User user = userService.getByEmail(login_email);
         if (user == null) user = userService.getByLogin(login_email);
@@ -36,15 +38,15 @@ public class UserController {
             Password password = new PasswordService(passwordRepository).getPasswordByUser(user);
             if (password.getHash().equals(password_hash) && password.getSalt().equals(salt)) {
                 LOGGER_CONTROLLER.info("Sign in is allowed for the user with id " + user.getId());
-                return user;
+                return new ResponseEntity<>(user, HttpStatus.OK);
             }
         }
         LOGGER_ERROR.error("Failed sign in try");
-        return null;
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/registration")
-    public String registrationUser(@RequestParam String first_name,
+    public ResponseEntity<String> registrationUser(@RequestParam String first_name,
                                    @RequestParam String last_name,
                                    @RequestParam String login,
                                    @RequestParam String email,
@@ -68,15 +70,15 @@ public class UserController {
             password.setUser(user);
             new PasswordService(passwordRepository).addPassword(password);
             LOGGER_CONTROLLER.info("Sign up successful for the user with id " + user.getId());
-            return "registration_success";
+            return new ResponseEntity<>("registration_success", HttpStatus.OK);
         } catch (Exception e) {
             LOGGER_ERROR.error("Failed sign up try");
-            return "registration_failed";
+            return new ResponseEntity<>("registration_failed", HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/user")
-    public User updateUser(@RequestParam Long id,
+    public ResponseEntity<User> updateUser(@RequestParam Long id,
                            @RequestParam String first_name,
                            @RequestParam String last_name,
                            @RequestParam String login,
@@ -105,25 +107,25 @@ public class UserController {
             user.setPassword(password);
             User outUser = userService.updateUser(user);
             LOGGER_CONTROLLER.info("Successful personal data update for the user with id " + id);
-            return outUser;
+            return new ResponseEntity<>(outUser, HttpStatus.OK);
         } catch (Exception e) {
             LOGGER_ERROR.error("Failed personal data update for the user with id " + id);
-            return null;
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/user")
-    public String deleteUser(@RequestParam Long id) {
+    public ResponseEntity<String> deleteUser(@RequestParam Long id) {
         UserService userService = new UserService(userRepository);
         try {
             User user = userService.getById(id);
             if (user.getLogin() == null) throw new Exception();
             userService.deleteUser(user);
             LOGGER_CONTROLLER.info("Successful deleting the user with id " + id);
-            return "delete_success";
+            return new ResponseEntity<>("delete_success", HttpStatus.OK);
         } catch (Exception e) {
             LOGGER_ERROR.error("Failed deleting the user with id " + id);
-            return "delete_failed";
+            return new ResponseEntity<>("delete_failed", HttpStatus.BAD_REQUEST);
         }
     }
 }

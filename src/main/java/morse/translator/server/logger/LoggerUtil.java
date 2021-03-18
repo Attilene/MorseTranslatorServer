@@ -9,12 +9,12 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class LoggerUtil {
-    private static final HashMap<String, Logger> loggers = new HashMap<>();
-    private static final Logger errorLogger = LoggerUtil.getLogger(LogType.ERROR);
+    private static final HashMap<String, Logger> LOGGERS = new HashMap<>();
+    private static final Logger ERROR_LOGGER = LoggerUtil.getLogger(LogType.ERROR);
 
     public static Logger getLogger(String name) {
-        if (loggers.containsKey(name)) {
-            return loggers.get(name);
+        if (LOGGERS.containsKey(name)) {
+            return LOGGERS.get(name);
         } else {
             Logger logger = Logger.getLogger(name);
             String fileName = "logs\\" + name + ".log";
@@ -25,9 +25,9 @@ public class LoggerUtil {
                 appender = new FileAppender(layout, fileName);
                 logger.addAppender(appender);
             } catch (IOException e) {
-                Objects.requireNonNull(errorLogger).error(e.getMessage(), e);
+                Objects.requireNonNull(ERROR_LOGGER).error(e.getMessage(), e);
             }
-            loggers.put(name, logger);
+            LOGGERS.put(name, logger);
             return logger;
         }
     }

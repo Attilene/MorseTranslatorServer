@@ -11,6 +11,8 @@ import morse.translator.server.logger.LogType;
 import morse.translator.server.logger.LoggerUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -29,21 +31,21 @@ public class HistoryController {
     HistoryRepository historyRepository;
 
     @PostMapping("/histories")
-    public List<History> getHistories(@RequestParam Long user_id) {
+    public ResponseEntity<List<History>> getHistories(@RequestParam Long user_id) {
         HistoryService historyService = new HistoryService(historyRepository);
         try {
             List<History> histories = historyService.findByUserId(user_id);
             LOGGER_CONTROLLER.info("Histories are received for user with id " + user_id);
-            return histories;
+            return new ResponseEntity<>(histories, HttpStatus.OK);
         }
         catch (Exception e) {
             LOGGER_ERROR.error("There is no histories for user with id " + user_id);
-            return null;
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("/history")
-    public History addHistory(@RequestParam String start_string,
+    public ResponseEntity<History> addHistory(@RequestParam String start_string,
                               @RequestParam Long user_id,
                               @RequestParam Boolean morse,
                               @RequestParam Boolean language) {
@@ -59,25 +61,25 @@ public class HistoryController {
             history.setUser(user);
             History outHistory = historyService.addHistory(history);
             LOGGER_CONTROLLER.info("Added a history for user with id " + user_id);
-            return outHistory;
+            return new ResponseEntity<>(outHistory, HttpStatus.OK);
         } catch (Exception e) {
             LOGGER_ERROR.error("Failed to add the history for user with id " + user_id);
-            return null;
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @DeleteMapping("/history")
-    public String deleteHistory(@RequestParam Long id) {
+    public ResponseEntity<String> deleteHistory(@RequestParam Long id) {
         try {
             HistoryService historyService = new HistoryService(historyRepository);
             History history = historyService.getById(id);
             if (history.getStart_string() == null) throw new Exception();
             historyService.deleteHistory(history);
             LOGGER_CONTROLLER.info("Successful deleting the history with id " + id);
-            return "history_delete_success";
+            return new ResponseEntity<>("history_delete_success", HttpStatus.OK);
         } catch (Exception e) {
             LOGGER_ERROR.error("Failed to delete the history with id " + id);
-            return "history_delete_failed";
+            return new ResponseEntity<>("history_delete_failed", HttpStatus.BAD_REQUEST);
         }
     }
 }
