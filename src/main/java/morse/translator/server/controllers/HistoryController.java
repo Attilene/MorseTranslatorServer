@@ -40,15 +40,15 @@ public class HistoryController {
         }
         catch (Exception e) {
             LOGGER_ERROR.error("There is no histories for user with id " + user_id);
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.OK);
         }
     }
 
     @PostMapping("/history")
     public ResponseEntity<History> addHistory(@RequestParam String start_string,
-                              @RequestParam Long user_id,
-                              @RequestParam Boolean morse,
-                              @RequestParam Boolean language) {
+                                              @RequestParam Long user_id,
+                                              @RequestParam Boolean morse,
+                                              @RequestParam Boolean language) {
         UserService userService = new UserService(userRepository);
         HistoryService historyService = new HistoryService(historyRepository);
         Translator translator = new Translator();
@@ -64,7 +64,7 @@ public class HistoryController {
             return new ResponseEntity<>(outHistory, HttpStatus.OK);
         } catch (Exception e) {
             LOGGER_ERROR.error("Failed to add the history for user with id " + user_id);
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.OK);
         }
     }
 
@@ -79,7 +79,7 @@ public class HistoryController {
             return new ResponseEntity<>("history_delete_success", HttpStatus.OK);
         } catch (Exception e) {
             LOGGER_ERROR.error("Failed to delete the history with id " + id);
-            return new ResponseEntity<>("history_delete_failed", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("history_delete_failed", HttpStatus.OK);
         }
     }
 }

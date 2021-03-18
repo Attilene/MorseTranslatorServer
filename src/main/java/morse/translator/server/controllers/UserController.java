@@ -29,8 +29,8 @@ public class UserController {
 
     @PostMapping("/enter")
     public ResponseEntity<User> enterUser(@RequestParam String login_email,
-                                    @RequestParam String password_hash,
-                                    @RequestParam String salt) {
+                                          @RequestParam String password_hash,
+                                          @RequestParam String salt) {
         UserService userService = new UserService(userRepository);
         User user = userService.getByEmail(login_email);
         if (user == null) user = userService.getByLogin(login_email);
@@ -42,18 +42,18 @@ public class UserController {
             }
         }
         LOGGER_ERROR.error("Failed sign in try");
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     @PostMapping("/registration")
     public ResponseEntity<String> registrationUser(@RequestParam String first_name,
-                                   @RequestParam String last_name,
-                                   @RequestParam String login,
-                                   @RequestParam String email,
-                                   @RequestParam String phone_number,
-                                   @RequestParam String birthday,
-                                   @RequestParam String password_hash,
-                                   @RequestParam String salt) {
+                                                   @RequestParam String last_name,
+                                                   @RequestParam String login,
+                                                   @RequestParam String email,
+                                                   @RequestParam String phone_number,
+                                                   @RequestParam String birthday,
+                                                   @RequestParam String password_hash,
+                                                   @RequestParam String salt) {
         UserService userService = new UserService(userRepository);
         try {
             User user = new User();
@@ -73,20 +73,20 @@ public class UserController {
             return new ResponseEntity<>("registration_success", HttpStatus.OK);
         } catch (Exception e) {
             LOGGER_ERROR.error("Failed sign up try");
-            return new ResponseEntity<>("registration_failed", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("registration_failed", HttpStatus.OK);
         }
     }
 
     @PutMapping("/user")
     public ResponseEntity<User> updateUser(@RequestParam Long id,
-                           @RequestParam String first_name,
-                           @RequestParam String last_name,
-                           @RequestParam String login,
-                           @RequestParam String email,
-                           @RequestParam String phone_number,
-                           @RequestParam String birthday,
-                           @RequestParam String password_hash,
-                           @RequestParam String salt) {
+                                           @RequestParam String first_name,
+                                           @RequestParam String last_name,
+                                           @RequestParam String login,
+                                           @RequestParam String email,
+                                           @RequestParam String phone_number,
+                                           @RequestParam String birthday,
+                                           @RequestParam String password_hash,
+                                           @RequestParam String salt) {
         UserService userService = new UserService(userRepository);
         PasswordService passwordService = new PasswordService(passwordRepository);
         try {
@@ -110,7 +110,7 @@ public class UserController {
             return new ResponseEntity<>(outUser, HttpStatus.OK);
         } catch (Exception e) {
             LOGGER_ERROR.error("Failed personal data update for the user with id " + id);
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.OK);
         }
     }
 
@@ -125,7 +125,7 @@ public class UserController {
             return new ResponseEntity<>("delete_success", HttpStatus.OK);
         } catch (Exception e) {
             LOGGER_ERROR.error("Failed deleting the user with id " + id);
-            return new ResponseEntity<>("delete_failed", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("delete_failed", HttpStatus.OK);
         }
     }
 }
