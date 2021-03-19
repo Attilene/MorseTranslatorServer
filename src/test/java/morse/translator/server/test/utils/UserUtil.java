@@ -4,7 +4,7 @@ import morse.translator.server.dbms.models.User;
 
 import java.sql.Date;
 
-public abstract class UserUtil {
+public final class UserUtil {
     public static User createUser() {
         User user = new User();
         user.setFirst_name("Олег");
@@ -15,4 +15,6 @@ public abstract class UserUtil {
         user.setBirthday(Date.valueOf("1970-01-01"));
         return user;
     }
+
+    private UserUtil() {}
 }

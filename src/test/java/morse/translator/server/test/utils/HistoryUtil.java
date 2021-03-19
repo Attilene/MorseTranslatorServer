@@ -5,7 +5,7 @@ import morse.translator.server.dbms.models.History;
 import java.time.Instant;
 import java.util.Date;
 
-public abstract class HistoryUtil {
+public final class HistoryUtil {
     public static History createHistory() {
         History history = new History();
         history.setStart_string("rtridjsncskdxgjf");
@@ -13,4 +13,6 @@ public abstract class HistoryUtil {
         history.setOperation_time(Date.from(Instant.now()));
         return history;
     }
+
+    private HistoryUtil() {}
 }
