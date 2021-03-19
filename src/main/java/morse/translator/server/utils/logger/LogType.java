@@ -1,4 +1,4 @@
-package morse.translator.server.logger;
+package morse.translator.server.utils.logger;
 
 public final class LogType {
     public static final String ERROR = "error";

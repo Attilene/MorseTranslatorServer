@@ -1,7 +1,7 @@
 package morse.translator.server.components;
 
-import morse.translator.server.logger.LogType;
-import morse.translator.server.logger.LoggerUtil;
+import morse.translator.server.utils.logger.LogType;
+import morse.translator.server.utils.logger.LoggerUtil;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package morse.translator.server.logger;
+package morse.translator.server.utils.logger;
 
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
