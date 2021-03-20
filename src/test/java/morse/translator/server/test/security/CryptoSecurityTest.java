@@ -22,14 +22,14 @@ public class CryptoSecurityTest {
         try {
             System.out.println("Running encrypt test...");
             for (int i = 0; i < 100; i++) {
-                String password = "" + i;
+                String password = String.valueOf(i);
                 String hash = CryptoUtil.createHash(password, CryptoUtil.createSalt());
                 String secondHash = CryptoUtil.createHash(password, CryptoUtil.createSalt());
                 if (hash.equals(secondHash)) {
                     System.out.println("Failure: two hashes are equal!");
                     failure = true;
                 }
-                String wrongPassword = "" + (i + 1);
+                String wrongPassword = String.valueOf(i + 1);
                 if (CryptoUtil.checkPassword(wrongPassword, hash)) {
                     System.out.println("Failure: wrong password accepted!");
                     failure = true;

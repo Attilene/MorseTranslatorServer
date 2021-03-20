@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class LoggerUtil {
+public final class LoggerUtil {
     private static final HashMap<String, Logger> LOGGERS = new HashMap<>();
     private static final Logger ERROR_LOGGER = LoggerUtil.getLogger(LogType.ERROR);
 

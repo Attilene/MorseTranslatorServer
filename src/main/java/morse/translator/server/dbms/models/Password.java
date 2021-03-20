@@ -13,10 +13,10 @@ public class Password implements Serializable {
     @Id
     private Long id;
 
-    @Column(nullable = false, length = 150)
+    @Column(nullable = false, length = 1000)
     private String hash;
 
-    @Column(nullable = false, length = 70)
+    @Column(nullable = false, length = 500)
     private String salt;
 
     @OneToOne(fetch = FetchType.LAZY)
