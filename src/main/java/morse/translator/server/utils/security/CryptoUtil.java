@@ -12,11 +12,33 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 
+/**
+ * Cryptographic class for password hashing and
+ * password verification using the PBKDF2 algorithm
+ *
+ * @author  Artem Bakanov aka Attilene
+ */
 public final class CryptoUtil {
     private static final Logger LOGGER_ERROR = LoggerUtil.getLogger(LogType.ERROR);
+
+    /**
+     * Algorithm of hashing password string
+     */
     private static final String ALGORITHM = "PBKDF2WithHmacSHA256";
+
+    /**
+     * Quantity of hashing iterations
+     */
     private static final int ITERATIONS = 50000;
+
+    /**
+     * Length of hash string
+     */
     private static final int HASH_BYTES = 256;
+
+    /**
+     * Length of salt string for hashing
+     */
     private static final int SALT_BYTES = 64;
 
     private CryptoUtil() {}
@@ -69,9 +91,9 @@ public final class CryptoUtil {
      * is used so that password hashes cannot be extracted from an on-line
      * system using a timing attack and then attacked off-line.
      *
-     * @param   a       the first byte array
-     * @param   b       the second byte array
-     * @return          true if both byte arrays are the same, false if not
+     * @param   a  the first byte array
+     * @param   b  the second byte array
+     * @return     true if both byte arrays are the same, false if not
      */
     private static boolean slowEquals(byte[] a, byte[] b) {
         int diff = a.length ^ b.length;
@@ -103,8 +125,8 @@ public final class CryptoUtil {
     /**
      * Converts a string of hexadecimal characters into a byte array.
      *
-     * @param   hex         the hex string
-     * @return              the hex string decoded into a byte array
+     * @param   hex  the hex string
+     * @return       the hex string decoded into a byte array
      */
     public static byte[] fromHex(String hex) {
         byte[] binary = new byte[hex.length() / 2];
@@ -116,8 +138,8 @@ public final class CryptoUtil {
     /**
      * Converts a byte array into a hexadecimal string.
      *
-     * @param   array       the byte array to convert
-     * @return              a length*2 character string encoding the byte array
+     * @param   array  the byte array to convert
+     * @return         a length * 2 character string encoding the byte array
      */
     public static String toHex(byte[] array) {
         BigInteger bi = new BigInteger(1, array);
