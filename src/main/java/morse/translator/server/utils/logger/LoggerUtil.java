@@ -11,8 +11,8 @@ import java.util.Objects;
 /**
  * <p>Class for creating log files based on a pattern: </p>
  * "%d{dd.MM.yyyy HH:mm:ss} %-5p - %m%n"
- * @see LogType
  *
+ * @see     LogType
  * @author  Artem Bakanov aka Attilene
  */
 public final class LoggerUtil {
@@ -23,10 +23,10 @@ public final class LoggerUtil {
     private static final Logger ERROR_LOGGER = LoggerUtil.getLogger(LogType.ERROR);
 
     /**
-     * Logger factory for creating new loggers and adding their to LOGGERS
+     * Logger factory for creating new loggers and adding their to dictionary of loggers
      *
      * @param   name  name of log file
-     * @return  new logger
+     * @return        new logger
      */
     public static Logger getLogger(String name) {
         if (LOGGERS.containsKey(name)) {

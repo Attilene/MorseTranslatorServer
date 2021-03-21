@@ -2,8 +2,8 @@ package morse.translator.server.utils.logger;
 
 /**
  * Templates for log file names
- * @see LoggerUtil
  *
+ * @see     LoggerUtil
  * @author  Artem Bakanov aka Attilene
  */
 public final class LogType {

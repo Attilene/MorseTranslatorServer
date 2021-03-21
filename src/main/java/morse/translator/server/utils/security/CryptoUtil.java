@@ -88,8 +88,8 @@ public final class CryptoUtil {
 
     /**
      * Compares two byte arrays in length-constant time. This comparison method
-     * is used so that password hashes cannot be extracted from an on-line
-     * system using a timing attack and then attacked off-line.
+     * is used so that password hashes cannot be extracted from an online
+     * system using a timing attack and then attacked offline.
      *
      * @param   a  the first byte array
      * @param   b  the second byte array
