@@ -8,10 +8,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 /**
- * Jpa Repository for creating CRUD queries for history table
+ * Jpa Repository for creating CRUD queries for the histories table
  *
  * @see     History
- * @see     morse.translator.server.dbms.services.HistoryService
  * @author  Artem Bakanov aka Attilene
  */
 public interface HistoryRepository extends JpaRepository<History, Long> {

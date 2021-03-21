@@ -6,10 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 /**
- * Jpa Repository for creating CRUD queries for password table
+ * Jpa Repository for creating CRUD queries for the passwords table
  *
  * @see     Password
- * @see     morse.translator.server.dbms.services.PasswordService
  * @author  Artem Bakanov aka Attilene
  */
 public interface PasswordRepository extends JpaRepository<Password, Long> {

@@ -6,10 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 /**
- * Jpa Repository for creating CRUD queries for user table
+ * Jpa Repository for creating CRUD queries for the users table
  *
  * @see     User
- * @see     morse.translator.server.dbms.services.UserService
  * @author  Artem Bakanov aka Attilene
  */
 public interface UserRepository extends JpaRepository<User, Long> {
