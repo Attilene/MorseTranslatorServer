@@ -5,8 +5,19 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Dictionaries of languages and morse for translation to morse code and back
+ *
+ * @see     Translator
+ * @author  Artem Bakanov aka Attilene
+ */
 @Component
 public abstract class Dictionaries {
+    /**
+     * Dictionary for translating from Russian language to Morse code.
+     * Each letter of the language has its own set of dots and dashes.
+     * Morse code has not case
+     */
     protected final Map<Character, String> rusToMorse = new HashMap<>() {{
         put('А', "·-");
         put('Б', "-···");
@@ -59,6 +70,11 @@ public abstract class Dictionaries {
         put(' ', "-···-");
     }};
 
+    /**
+     * Dictionary for translating from English language to Morse code
+     * Each letter of the language has its own set of dots and dashes.
+     * Morse code has not case
+     */
     protected Map<Character, String> engToMorse = new HashMap<>() {{
         put('A', "·-");
         put('B', "-···");
@@ -105,18 +121,33 @@ public abstract class Dictionaries {
         put(' ', "-···-");
     }};
 
+    /**
+     * Dictionary for translating from Morse code to Russian language
+     * Each set of dots and dashes has its own letter of the language.
+     * Morse code has not case
+     */
     protected final Map<String, Character> morseToRus = new HashMap<>() {{
         for(Map.Entry<Character, String> entry: rusToMorse.entrySet()) {
             put(entry.getValue(), entry.getKey());
         }
     }};
 
+    /**
+     * Dictionary for translating from Morse code to English language
+     * Each set of dots and dashes has its own letter of the language.
+     * Morse code has not case
+     */
     protected final Map<String, Character> morseToEng = new HashMap<>() {{
         for(Map.Entry<Character, String> entry: engToMorse.entrySet()) {
             put(entry.getValue(), entry.getKey());
         }
     }};
 
+    /**
+     * Method for displaying or returning all translation dictionaries
+     *
+     * @return  set of translation dictionaries in string field
+     */
     @Override
     public String toString() {
         return "Dictionaries{" +
