@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Class for running the Morse translator project
  *
  * @author  Artem Bakanov aka Attilene
+ * @version 1.0
  */
 @SpringBootApplication
 public class ServerApplication {

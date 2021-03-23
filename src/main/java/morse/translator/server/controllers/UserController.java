@@ -17,17 +17,37 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 
+/**
+ * <p>Controller for processing requests user manipulating commands</p>
+ * Supported operations: registration, enter, update user, delete user
+ *
+ * @author  Artem Bakanov aka Attilene
+ */
 @RestController
 public class UserController {
     private static final Logger LOGGER_CONTROLLER = LoggerUtil.getLogger(LogType.CONTROLLER);
     private static final Logger LOGGER_ERROR = LoggerUtil.getLogger(LogType.ERROR);
 
+    /**
+     * Repository for manipulating data in the users table
+     */
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Repository for manipulating data in the passwords table
+     */
     @Autowired
     private PasswordRepository passwordRepository;
 
+    /**
+     * Method for processing post-requests of user entering to private cabinet
+     * <p>API: POST:/enter</p>
+     *
+     * @param   login_email  user login or email
+     * @param   password     user password
+     * @return               instance of User model class or null, if user instance does not exist
+     */
     @PostMapping("/enter")
     public ResponseEntity<User> enterUser(@RequestParam String login_email,
                                           @RequestParam String password) {
@@ -45,6 +65,19 @@ public class UserController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+    /**
+     * Method for processing post-requests of creating new user`s private cabinet (registration)
+     * <p>API: POST:/registration</p>
+     *
+     * @param   first_name    user first name
+     * @param   last_name     user last name
+     * @param   login         user login
+     * @param   email         user email
+     * @param   phone_number  user phone number
+     * @param   birthday      user birthday
+     * @param   password      user password
+     * @return                "registration_success" string or "registration_failed" string, if user registration failed
+     */
     @PostMapping("/registration")
     public ResponseEntity<String> registrationUser(@RequestParam String first_name,
                                                    @RequestParam String last_name,
@@ -80,6 +113,20 @@ public class UserController {
         }
     }
 
+    /**
+     * Method for processing put-requests of updating user personal data
+     * <p>API: PUT:/user</p>
+     *
+     * @param   id            user id
+     * @param   first_name    user first name
+     * @param   last_name     user last name
+     * @param   login         user login
+     * @param   email         user email
+     * @param   phone_number  user phone number
+     * @param   birthday      user birthday
+     * @param   password      user password
+     * @return                instance of User model class or null, if user instance does not exist
+     */
     @PutMapping("/user")
     public ResponseEntity<User> updateUser(@RequestParam Long id,
                                            @RequestParam String first_name,
@@ -120,6 +167,14 @@ public class UserController {
         }
     }
 
+    /**
+     * Method for processing delete-requests of deleting user`s private cabinet
+     * <p>API: DELETE:/user</p>
+     *
+     * @param   id        user id
+     * @param   password  user password
+     * @return            "delete_success" or "delete_failed", if user delete failed
+     */
     @DeleteMapping("/user")
     public ResponseEntity<String> deleteUser(@RequestParam Long id,
                                              @RequestParam String password) {

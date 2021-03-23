@@ -19,17 +19,36 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * <p>Controller for processing requests translation history manipulating commands</p>
+ * Supported operations: get histories by user, add history to user, delete history
+ *
+ * @author  Artem Bakanov aka Attilene
+ */
 @RestController
 public class HistoryController {
     private static final Logger LOGGER_CONTROLLER = LoggerUtil.getLogger(LogType.CONTROLLER);
     private static final Logger LOGGER_ERROR = LoggerUtil.getLogger(LogType.ERROR);
 
+    /**
+     * Repository for manipulating data in the users table
+     */
     @Autowired
     UserRepository userRepository;
 
+    /**
+     * Repository for manipulating data in the histories table
+     */
     @Autowired
     HistoryRepository historyRepository;
 
+    /**
+     * Method for processing post-requests of getting user`s histories
+     * <p>API: POST:/histories</p>
+     *
+     * @param   user_id  user id
+     * @return           list of instances of History model class or null, if user by user_id does not exist
+     */
     @PostMapping("/histories")
     public ResponseEntity<List<History>> getHistories(@RequestParam Long user_id) {
         HistoryService historyService = new HistoryService(historyRepository);
@@ -44,6 +63,16 @@ public class HistoryController {
         }
     }
 
+    /**
+     * Method for processing post-requests of adding new history to user entity
+     * <p>API: POST:/history</p>
+     *
+     * @param   start_string  history start string
+     * @param   user_id       user id
+     * @param   morse         variable for translating to Morse code or back
+     * @param   language      variable for chosen natural language
+     * @return                instance of History model class or null, if adding history to user is failed
+     */
     @PostMapping("/history")
     public ResponseEntity<History> addHistory(@RequestParam String start_string,
                                               @RequestParam Long user_id,
@@ -68,6 +97,13 @@ public class HistoryController {
         }
     }
 
+    /**
+     * Method for processing delete-requests of deleting history from the histories table
+     * <p>API: DELETE:/history</p>
+     *
+     * @param   id  history id
+     * @return      "history_delete_success" or "history_delete_failed", if deleting the history is failed
+     */
     @DeleteMapping("/history")
     public ResponseEntity<String> deleteHistory(@RequestParam Long id) {
         try {
