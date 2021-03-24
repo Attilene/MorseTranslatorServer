@@ -22,5 +22,10 @@ public final class LogType {
      */
     public static final String CONTROLLER = "controller";
 
+    /**
+     * Template for log file of mail sender commands
+     */
+    public static final String MAIL_SENDER = "mail_sender";
+
     private LogType() {}
 }

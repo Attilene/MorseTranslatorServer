@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 
 /**
- * <p>Controller for processing requests user manipulating commands</p>
+ * <p>Controller for processing requests user`s manipulating commands</p>
  * Supported operations: registration, enter, update user, delete user
  *
  * @author  Artem Bakanov aka Attilene
@@ -108,7 +108,7 @@ public class UserController {
             LOGGER_CONTROLLER.info("Sign up successful for the user with id " + user.getId());
             return new ResponseEntity<>("registration_success", HttpStatus.OK);
         } catch (Exception e) {
-            LOGGER_ERROR.error("Failed sign up try");
+            LOGGER_ERROR.error("Failed sign up try", e);
             return new ResponseEntity<>("registration_failed", HttpStatus.OK);
         }
     }
@@ -162,7 +162,7 @@ public class UserController {
             LOGGER_CONTROLLER.info("Successful personal data update for the user with id " + id);
             return new ResponseEntity<>(outUser, HttpStatus.OK);
         } catch (Exception e) {
-            LOGGER_ERROR.error("Failed personal data update for the user with id " + id);
+            LOGGER_ERROR.error("Failed personal data update for the user with id " + id, e);
             return new ResponseEntity<>(null, HttpStatus.OK);
         }
     }
@@ -186,7 +186,7 @@ public class UserController {
             LOGGER_CONTROLLER.info("Successful deleting the user with id " + id);
             return new ResponseEntity<>("delete_success", HttpStatus.OK);
         } catch (Exception e) {
-            LOGGER_ERROR.error("Failed deleting the user with id " + id);
+            LOGGER_ERROR.error("Failed deleting the user with id " + id, e);
             return new ResponseEntity<>("delete_failed", HttpStatus.OK);
         }
     }

@@ -1,6 +1,6 @@
 package morse.translator.server.controllers;
 
-import morse.translator.server.components.Translator;
+import morse.translator.server.components.translator.Translator;
 import morse.translator.server.dbms.models.History;
 import morse.translator.server.dbms.models.User;
 import morse.translator.server.dbms.repositories.HistoryRepository;
@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * <p>Controller for processing requests translation history manipulating commands</p>
+ * <p>Controller for processing requests translation history`s manipulating commands</p>
  * Supported operations: get histories by user, add history to user, delete history
  *
  * @author  Artem Bakanov aka Attilene
@@ -58,7 +58,7 @@ public class HistoryController {
             return new ResponseEntity<>(histories, HttpStatus.OK);
         }
         catch (Exception e) {
-            LOGGER_ERROR.error("There is no histories for user with id " + user_id);
+            LOGGER_ERROR.error("There is no histories for user with id " + user_id, e);
             return new ResponseEntity<>(null, HttpStatus.OK);
         }
     }
@@ -92,7 +92,7 @@ public class HistoryController {
             LOGGER_CONTROLLER.info("Added a history for user with id " + user_id);
             return new ResponseEntity<>(outHistory, HttpStatus.OK);
         } catch (Exception e) {
-            LOGGER_ERROR.error("Failed to add the history for user with id " + user_id);
+            LOGGER_ERROR.error("Failed to add the history for user with id " + user_id, e);
             return new ResponseEntity<>(null, HttpStatus.OK);
         }
     }
@@ -114,7 +114,7 @@ public class HistoryController {
             LOGGER_CONTROLLER.info("Successful deleting the history with id " + id);
             return new ResponseEntity<>("history_delete_success", HttpStatus.OK);
         } catch (Exception e) {
-            LOGGER_ERROR.error("Failed to delete the history with id " + id);
+            LOGGER_ERROR.error("Failed to delete the history with id " + id, e);
             return new ResponseEntity<>("history_delete_failed", HttpStatus.OK);
         }
     }

@@ -1,4 +1,4 @@
-package morse.translator.server.components;
+package morse.translator.server.components.translator;
 
 import morse.translator.server.utils.logger.LogType;
 import morse.translator.server.utils.logger.LoggerUtil;
