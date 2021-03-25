@@ -54,6 +54,7 @@ public class HistoryController {
         HistoryService historyService = new HistoryService(historyRepository);
         try {
             List<History> histories = historyService.findByUserId(user_id);
+
             LOGGER_CONTROLLER.info("Histories are received for user with id " + user_id);
             return new ResponseEntity<>(histories, HttpStatus.OK);
         }
@@ -89,6 +90,7 @@ public class HistoryController {
             if (user.getLogin() == null) throw new Exception();
             history.setUser(user);
             History outHistory = historyService.addHistory(history);
+
             LOGGER_CONTROLLER.info("Added a history for user with id " + user_id);
             return new ResponseEntity<>(outHistory, HttpStatus.OK);
         } catch (Exception e) {
@@ -111,6 +113,7 @@ public class HistoryController {
             History history = historyService.getById(id);
             if (history.getStart_string() == null) throw new Exception();
             historyService.deleteHistory(history);
+
             LOGGER_CONTROLLER.info("Successful deleting the history with id " + id);
             return new ResponseEntity<>("history_delete_success", HttpStatus.OK);
         } catch (Exception e) {

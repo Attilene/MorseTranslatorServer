@@ -10,6 +10,8 @@ import javax.crypto.SecretKeyFactory;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Random;
+import java.util.regex.Pattern;
 
 
 /**
@@ -131,7 +133,7 @@ public final class CryptoUtil {
     public static byte[] fromHex(String hex) {
         byte[] binary = new byte[hex.length() / 2];
         for(int i = 0; i < binary.length; i++)
-            binary[i] = (byte)Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);
+            binary[i] = (byte) Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);
         return binary;
     }
 
@@ -149,5 +151,34 @@ public final class CryptoUtil {
             return String.format("%0" + paddingLength + "d", 0) + hex;
         else
             return hex;
+    }
+
+    /**
+     * Parser of id from secret mail key
+     *
+     * @param   secretKey  secret mail key
+     * @return             user id
+     */
+    public static Long getIdFromSecretKey(String secretKey) {
+        return Long.valueOf(secretKey.substring(SALT_BYTES * 2));
+    }
+
+    /**
+     * Method for automatically generating a new password for user
+     *
+     * @param   length  length of a new password
+     * @return          generated password
+     */
+    public static String generatingNewPassword(int length) {
+        final String PASSWORD_REGEX = "^((?=.*[0-9])(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*[@#$%]).{8,})$";
+        final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%";
+        Random random = new Random();
+        StringBuilder stringBuilder = new StringBuilder();
+        while (!Pattern.matches(PASSWORD_REGEX, stringBuilder)) {
+            stringBuilder = new StringBuilder();
+            for (; length > 0; --length)
+                stringBuilder.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
+        }
+        return stringBuilder.toString();
     }
 }

@@ -105,6 +105,7 @@ public class UserController {
             Password password_hash = new Password(CryptoUtil.createHash(password, salt), CryptoUtil.toHex(salt));
             password_hash.setUser(user);
             new PasswordService(passwordRepository).addPassword(password_hash);
+
             LOGGER_CONTROLLER.info("Sign up successful for the user with id " + user.getId());
             return new ResponseEntity<>("registration_success", HttpStatus.OK);
         } catch (Exception e) {
@@ -159,6 +160,7 @@ public class UserController {
             }
             user.setPassword(password_hash);
             User outUser = userService.updateUser(user);
+
             LOGGER_CONTROLLER.info("Successful personal data update for the user with id " + id);
             return new ResponseEntity<>(outUser, HttpStatus.OK);
         } catch (Exception e) {
@@ -183,6 +185,7 @@ public class UserController {
             User user = userService.getById(id);
             if (!CryptoUtil.checkPassword(password, user.getPassword().getHash())) throw new Exception();
             userService.deleteUser(user);
+
             LOGGER_CONTROLLER.info("Successful deleting the user with id " + id);
             return new ResponseEntity<>("delete_success", HttpStatus.OK);
         } catch (Exception e) {

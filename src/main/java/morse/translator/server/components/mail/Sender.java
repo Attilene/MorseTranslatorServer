@@ -21,32 +21,33 @@ import java.nio.file.Paths;
 public class Sender {
     private static final Logger LOGGER_ERROR = LoggerUtil.getLogger(LogType.ERROR);
 
-    private final ApplicationContext context = new AnnotationConfigApplicationContext(MailProperties.class);
+    private static final ApplicationContext CONTEXT = new AnnotationConfigApplicationContext(MailProperties.class);
     private static final String FROM = System.getenv("MAIL_FROM");
 
     public void sendSimpleMessage(String to, String subject, String text) {
         Thread thread = new Thread(() -> {
-            JavaMailSender emailSender = context.getBean(JavaMailSender.class);
+            JavaMailSender emailSender = CONTEXT.getBean(JavaMailSender.class);
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(FROM);
             message.setTo(to);
             message.setSubject(subject);
             message.setText(text);
+
             emailSender.send(message);
         });
         thread.start();
     }
 
-    public void sendMessageWithAttachment(String to, String subject, String pathAttachment) {
+    public void sendMessageWithTextFromFile(String to, String subject, String pathAttachment, boolean html) {
         Thread thread = new Thread(() -> {
-            JavaMailSender emailSender = context.getBean(JavaMailSender.class);
+            JavaMailSender emailSender = CONTEXT.getBean(JavaMailSender.class);
             MimeMessage message = emailSender.createMimeMessage();
             try {
                 MimeMessageHelper helper = new MimeMessageHelper(message, "utf-8");
                 helper.setFrom(FROM);
                 helper.setTo(to);
                 helper.setSubject(subject);
-                helper.setText(new String(Files.readAllBytes(Paths.get(pathAttachment))), true);
+                helper.setText(new String(Files.readAllBytes(Paths.get(pathAttachment))), html);
 
                 emailSender.send(message);
             } catch (IOException | MessagingException e) {
