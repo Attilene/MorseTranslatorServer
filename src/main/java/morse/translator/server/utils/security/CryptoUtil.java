@@ -170,13 +170,13 @@ public final class CryptoUtil {
      * @return          generated password
      */
     public static String generatingNewPassword(int length) {
-        final String PASSWORD_REGEX = "^((?=.*[0-9])(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*[@#$%]).{8,})$";
-        final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%";
+        final String PASSWORD_REGEX = "^((?=.*[0-9])(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*[@#$]).{8,})$";
+        final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$";
         Random random = new Random();
         StringBuilder stringBuilder = new StringBuilder();
         while (!Pattern.matches(PASSWORD_REGEX, stringBuilder)) {
             stringBuilder = new StringBuilder();
-            for (; length > 0; --length)
+            for (int i = length; i > 0; --i)
                 stringBuilder.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
         }
         return stringBuilder.toString();

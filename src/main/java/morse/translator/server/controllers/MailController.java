@@ -79,12 +79,13 @@ public class MailController {
     @RequestMapping("/enter/change_password")
     public ResponseEntity<?> changePasswordRecovery(@RequestParam String sec_key) {
         UserService userService = new UserService(userRepository);
-        Long id = CryptoUtil.getIdFromSecretKey(sec_key);
         try {
+            Long id = CryptoUtil.getIdFromSecretKey(sec_key);
             User user = userService.getById(id);
-            if (user != null && sec_key.contains(user.getPassword().getSalt())) {
+            if (user == null) throw new Exception();
+            if (sec_key.contains(user.getPassword().getSalt())) {
                 Password password = user.getPassword();
-                String newPassword = CryptoUtil.generatingNewPassword(8);
+                String newPassword = CryptoUtil.generatingNewPassword(10);
                 byte[] newSalt = CryptoUtil.createSalt();
                 password.setHash(CryptoUtil.createHash(newPassword, newSalt));
                 password.setSalt(CryptoUtil.toHex(newSalt));
