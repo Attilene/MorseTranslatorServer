@@ -10,7 +10,6 @@ import morse.translator.server.dbms.services.UserService;
 import morse.translator.server.utils.logger.LogType;
 import morse.translator.server.utils.logger.LoggerUtil;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,14 +32,23 @@ public class HistoryController {
     /**
      * Repository for manipulating data in the users table
      */
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
     /**
      * Repository for manipulating data in the histories table
      */
-    @Autowired
-    HistoryRepository historyRepository;
+    private final HistoryRepository historyRepository;
+
+    /**
+     * Constructor for repositories
+     *
+     * @param  userRepository     instance of UserRepository class
+     * @param  historyRepository  instance of HistoryRepository class
+     */
+    public HistoryController(UserRepository userRepository, HistoryRepository historyRepository) {
+        this.userRepository = userRepository;
+        this.historyRepository = historyRepository;
+    }
 
     /**
      * Method for processing post-requests of getting user`s histories

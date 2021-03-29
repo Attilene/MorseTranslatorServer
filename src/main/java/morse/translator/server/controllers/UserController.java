@@ -10,7 +10,6 @@ import morse.translator.server.utils.logger.LogType;
 import morse.translator.server.utils.logger.LoggerUtil;
 import morse.translator.server.utils.security.CryptoUtil;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,14 +30,23 @@ public class UserController {
     /**
      * Repository for manipulating data in the users table
      */
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     /**
      * Repository for manipulating data in the passwords table
      */
-    @Autowired
-    private PasswordRepository passwordRepository;
+    private final PasswordRepository passwordRepository;
+
+    /**
+     * Constructor for repositories
+     *
+     * @param  userRepository      instance of UserRepository class
+     * @param  passwordRepository  instance of PasswordRepository class
+     */
+    public UserController(UserRepository userRepository, PasswordRepository passwordRepository) {
+        this.userRepository = userRepository;
+        this.passwordRepository = passwordRepository;
+    }
 
     /**
      * Method for processing post-requests of user entering to private cabinet
