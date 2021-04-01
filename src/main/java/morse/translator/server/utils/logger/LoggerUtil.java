@@ -47,4 +47,9 @@ public final class LoggerUtil {
             return logger;
         }
     }
+
+    /**
+     * Private constructor for locking changes in a constant class
+     */
+    private LoggerUtil() {}
 }

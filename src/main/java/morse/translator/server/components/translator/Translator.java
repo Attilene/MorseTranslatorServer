@@ -119,7 +119,7 @@ public class Translator extends Dictionaries {
     /**
      * <p>Replacing all incorrect characters to ''</p>
      * Incorrect characters: ; $ # @ " ' & % № ^
-     * <p></p>
+     * <p> </p>
      * © Doofenshmirtz Evil Inc.Corporated
      * @param   str  start string which may contains incorrect characters
      * @return       final string which has no incorrect characters

@@ -43,12 +43,16 @@ public final class CryptoUtil {
      */
     private static final int SALT_BYTES = 64;
 
+    /**
+     * Private constructor for locking changes in a constant class
+     */
     private CryptoUtil() {}
 
     /**
      * Returns a salted PBKDF2 hash of the password.
      *
      * @param   password  password string to hash
+     * @param   salt      auxiliary byte array for hashing password
      * @return            a salted PBKDF2 hash of the password
      */
     public static String createHash(String password, byte[] salt) {

@@ -27,5 +27,8 @@ public final class LogType {
      */
     public static final String MAIL_SENDER = "mail_sender";
 
+    /**
+     * Private constructor for locking changes in a constant class
+     */
     private LogType() {}
 }
