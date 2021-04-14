@@ -12,14 +12,14 @@
 
 ***
 ## Description:
-The server for [Morse Translator application](https://github.com/Attilene/MorseTranslatorClient)
+The server for **Morse Translator [application](https://github.com/Attilene/MorseTranslatorClient)**
 
 Allowed actions for the server:
 * Log in existing user
 * Sign up a new user
 * Manage user's private cabinet
 * Password recovery via email  
-* Translating strings from natural languages (Russian, English) to Morse code and back
+* Translate strings from natural languages (Russian, English) to Morse code and back
 
 The server working on **Java Spring** framework
 and linked to the **PostgreSQL** database.
@@ -28,7 +28,7 @@ and linked to the **PostgreSQL** database.
 ## Run:
 1. Download and build project
 2. Run `ServerApplication.java`
-3. Run **Morse Translator** app
+3. Run **Morse Translator [app](https://github.com/Attilene/MorseTranslatorClient)**
 4. Enjoy the application
 
 ***
@@ -115,6 +115,7 @@ and linked to the **PostgreSQL** database.
 * [Java 15](https://www.oracle.com/ru/java/) - Main programming language
 * [PostgreSQL](https://www.postgresql.org/download/windows/) - Database management system
 * [Java Spring](https://spring.io) - Universal development framework
+* [Maven](https://maven.apache.org) - Dependency Management  
 * [JUnit](https://junit.org/junit5/) - Testing
 * [Log4j](https://logging.apache.org/log4j/1.2/download.html) - Logging
 
