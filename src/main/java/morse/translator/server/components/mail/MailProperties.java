@@ -24,7 +24,7 @@ public class MailProperties {
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.msndr.net");
-        mailSender.setPort(25);
+        mailSender.setPort(587);
         mailSender.setUsername(System.getenv("MAIL_FROM"));
         mailSender.setPassword(System.getenv("MAIL_PASSWORD"));
 

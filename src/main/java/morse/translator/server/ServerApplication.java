@@ -2,6 +2,9 @@ package morse.translator.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Class for running the Morse translator server
@@ -11,6 +14,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version 1.0
  */
 @SpringBootApplication
+@EnableJpaAuditing
+@EnableTransactionManagement
+@PropertySource("classpath:application.properties")
 public class ServerApplication {
     /**
      * Main method for running the project
